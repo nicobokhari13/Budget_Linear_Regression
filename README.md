@@ -1,4 +1,4 @@
-# CIS481_ModelSelectionForFederalBudgetDeficit
+# Budget_Linear_Regression
 
 Utilizing Cross Validation with iterations over folds of a training set and the Root-Mean-Squared-Error(RMSE) measure of performance, this MATLAB code produces a Linear Regression model to predict the Federal Budget Deficit given an input year. 
 
