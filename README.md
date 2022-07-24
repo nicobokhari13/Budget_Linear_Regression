@@ -4,5 +4,6 @@ Utilizing Cross Validation with iterations over folds of a training set and the 
 
 A graph is produced with the plot of the Training Set and the Target Function h(x) represented by a linear combination of weights (w) and the normalized input year (x) 
 
-Normalization was applied to both the input and output of the Training Set. The RMSE was calcualted with 
-non-normalized h(x) values and non-normalized Training output (The Training output was transformed from normalized space to original space. 
+Z-Score Normalization was applied to both the input and output of the Training Set. RMSE was calclated with this normalization applied. 
+
+Output file 'w.dat' provides coefficients for the terms in Target Function Polynomial.
