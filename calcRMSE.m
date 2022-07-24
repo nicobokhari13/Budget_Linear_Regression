@@ -1,30 +1,20 @@
-function RMSE = calcRMSE(TestX, TestY, w, meanTrainY, stdTrainY)
-%calcRMSE returns the Root Mean Squared Error of the function denoted by
-%coefficients w
-%TestX should be normalized by the TrainX normalization
-%must de-normalize output of w*TestX with meanTrainY and stdTrainY to
-%compare
-RMSE = 0; 
-hOfX = 0;
-sumOfDiff = 0;
-Diff = 0; 
-szTestY = size(TestY); 
-szW = size(w); 
-for row = 1: szTestY(1) %for every datapoint
-    for numWs = 1: szW(1) %for every w
-        hOfX = hOfX + w(numWs, 1) * (TestX(row, 1) ^ (numWs - 1)); %weight * X^deg
+function RMSE...
+    = calcRMSE(...
+    x_holdout, y_holdout, w)
+    %calcRMSE returns the RMSE for a specific set of weights w
+    %used in function h(x_holdout) that are measured against
+    %y_holdout with Root-Mean-Squared-Error
+    %Pre-Condition: y_holdout is normalized
+    n = size(w, 1); %n = number of terms in h(x_holdout) polynomial
+    m = size(x_holdout, 1); %m = number of examples
+    h = zeros(m, 1); %h holds h(x) of the x_holdout instances
+    for l = 1: m %per instance l
+        for i = 1: n %per weight term i
+            h(l,1) = h(l, 1) + w(i, 1) * x_holdout(l,1).^(i - 1);
+        end
     end
-    %The output of the linear function denoted by weights w is hOfX 
-    %denormalize hOfX
-    hOfX = stdTrainY*hOfX + meanTrainY; 
-    %now hOfX and TestY are in the same space 
-    Diff = (TestY(row, 1) - hOfX) ^ 2; 
-    sumOfDiff = sumOfDiff + Diff; 
-    hOfX = 0; 
-end
-%sumOfDiff now has the sum of the squared differences between Y and hOfX
-RMSE = sumOfDiff / szTestY(1);
-RMSE = sqrt(RMSE); 
-end
+    reg_error = (y_holdout - h).^2;
+    RMSE = (1/m) * sum(reg_error);
+    RMSE = sqrt(RMSE);
 
-
+end

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# set APP_PATH = /Applications/Octave.app/Contents/Resources/bin/octave -q
+# set APP_PATH = /Applications/MATLAB_R2010b.app/bin/matlab -nosplash -nojvm -nodesktop -r
+
+sed -e "s/^d = .*/d = $1;/;s/^lambda = .*/lambda = 0;/;" learn_polyfit_template.m > learn_polyfit.m
+
+/usr/local/octave/3.8.0/bin/octave-3.8.0 -q learn_polyfit.m
+
+exit
+
